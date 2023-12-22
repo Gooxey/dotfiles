@@ -1,0 +1,10 @@
+#panel {
+    height: 36px;
+
+    margin: 8px;
+    margin-bottom: 0;
+    
+    border-radius: 12px;
+
+    background-color: rgba(48, 48, 48, 0.6);
+}
