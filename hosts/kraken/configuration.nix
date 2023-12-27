@@ -9,12 +9,4 @@
     ../../modules/nixos/desktop-enviroment/${desktop_enviroment}.nix
     inputs.home-manager.nixosModules.default
   ];
-
-  # resolution
-  services.xserver.resolutions = [
-    {
-      x = 1920;
-      y = 1080;
-    }
-  ];
 }

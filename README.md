@@ -2,15 +2,8 @@
 
 ## Installation
 
+Inside this directory execute the `setup.sh` script. It will ask you which machine, desktop-environment and rice you want.
+
 ```bash
-sudo nixos-rebuild switch --upgrade-all --flake .#<machine>-<desktop-environment>-<rice>
+bash ./setup.sh
 ```
-
-### Machine
-
-- `vm`
-
-### Desktop Environment and their Rice
-
-- `gnome`
-    - `cyberpunk`

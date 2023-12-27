@@ -1,4 +1,4 @@
-{ pkgs, user, ... }: rec {  
+{ pkgs, user, ... }: rec {
   # save gnome theme
   home.file.".themes/Cyberpunk/gnome-shell/gnome-shell.css".source = ./gnome-shell.css;
   # save wallpaper
@@ -8,13 +8,16 @@
   home.packages = with pkgs.gnomeExtensions; [
     pop-shell
     app-icons-taskbar
-    rounded-window-corners
     top-bar-organizer
     user-themes
   ];
 
   dconf.settings = {
     "org/gnome/desktop/interface".color-scheme = "prefer-dark";
+    "org/gnome/desktop/peripherals/mouse".accel-profile = "flat";
+
+    # shortcuts
+    "org/gnome/desktop/wm/preferences".mouse-button-modifier = "<Alt>";
 
     # Enable installed extensions
     "org/gnome/shell".enabled-extensions = (map (extension: extension.extensionUuid) home.packages) ++ ["user-theme@gnome-shell-extensions.gcampax.github.com"];

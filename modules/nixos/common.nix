@@ -1,4 +1,9 @@
 { stateVersion, pkgs, ... }: {
+  # needed because of obsidian
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-25.9.0"
+  ];
+
   # boot loader
   boot = {
     # no messages
@@ -51,7 +56,6 @@
     };
   };
   # Configure console keymap
-  #   do not forget to change lang in `x11.nix`
   console.keyMap = "de";
 
   # nix settings

@@ -33,6 +33,7 @@
   in {
     nixosConfigurations = {
       vm-gnome-cyberpunk = mkSystem "vm" "gnome" "cyberpunk";
+      kraken-gnome-cyberpunk = mkSystem "kraken" "gnome" "cyberpunk";
     };
   };
 }

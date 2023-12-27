@@ -5,7 +5,7 @@ in {
   imports = [
     # open for future files
   ] ++ lib.optional(builtins.pathExists rice_path) rice_path;
-  
+
   home = {
     username = user;
     homeDirectory = "/home/${user}";
@@ -13,12 +13,16 @@ in {
     stateVersion = stateVersion;
 
     packages = with pkgs; [
+      kitty
+
       brave
+      spotify
+      obsidian
+
       vscode
       neovim
-      kitty
-      spotify
       git
+      rustup
     ];
   };
 
