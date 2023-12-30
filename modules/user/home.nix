@@ -22,6 +22,7 @@ in {
       vscode
       neovim
       git
+      gh
       rustup
     ];
   };
