@@ -19,10 +19,7 @@
 
     # loader
     loader = {
-      efi = {
-	canTouchEfiVariables = true;
-	# efiSysMountPoint = "/boot/efi";
-      };
+      efi.canTouchEfiVariables = true;
       grub = {
         enable = true;
         device = "nodev";
@@ -46,7 +43,6 @@
     };
   };
 
-  
   time = {
     timeZone = "Europe/Berlin";       # language
     hardwareClockInLocalTime = true;  # Windows compatible clock
@@ -71,19 +67,30 @@
   # nix settings
   nix = {
     settings = {
+      # automate `nix store --optimise`
       auto-optimise-store = true;
       experimental-features = [ "nix-command" "flakes" ];
+      warn-dirty = false;
     };
 
     gc = {
       automatic = true;
       dates = "weekly";
-      options = "--delete-older-than 30d";
+      options = "--delete-older-than 7d";
     };
   };
   nixpkgs.config = {
     allowUnfree = true;
     allowUnfreePredicate = (_: true);
+  };
+
+  # automatic updates
+  system = {
+    autoUpgrade = {
+      enable = true;
+      dates = "daily";
+    };
+    stateVersion = stateVersion;
   };
 
   # sound
@@ -101,5 +108,4 @@
   # misc
   networking.networkmanager.enable = true;
   services.printing.enable = true;            # Enable CUPS to print documents.
-  system.stateVersion = stateVersion;
 }

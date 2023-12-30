@@ -6,6 +6,12 @@ in {
     # open for future files
   ] ++ lib.optional(builtins.pathExists rice_path) rice_path;
 
+  # automatic updates
+  services.home-manager.autoUpgrade = {
+    enable = true;
+    frequency = "daily";
+  };
+
   home = {
     username = user;
     homeDirectory = "/home/${user}";
@@ -26,6 +32,7 @@ in {
       rustup
     ];
   };
+
 
   programs = {
     git = {
