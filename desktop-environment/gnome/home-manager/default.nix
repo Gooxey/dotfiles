@@ -1,10 +1,7 @@
-{ pkgs, user, ... }: rec {
-  # save gnome theme
+{ pkgs, userdata, ... }: rec {
   home.file.".themes/Cyberpunk/gnome-shell/gnome-shell.css".source = ./gnome-shell.css;
-  # save wallpaper
-  home.file.".themes/Cyberpunk/wallpaper.jpg".source = ./wallpaper.jpg;
-  
-  # install extensions
+  xdg.configFile."wallpapers/cyberpunk.jpg".source = ../../../assets/wallpapers/cyberpunk.jpg;
+
   home.packages = with pkgs.gnomeExtensions; [
     pop-shell
     app-icons-taskbar
@@ -26,8 +23,8 @@
     # Configure style
     "org/gnome/shell/extensions/user-theme".name = "Cyberpunk";
     "org/gnome/desktop/background" = {
-      picture-uri = "/home/${user}/.themes/Cyberpunk/wallpaper.jpg";
-      picture-uri-dark = "/home/${user}/.themes/Cyberpunk/wallpaper.jpg";
+      picture-uri = "/home/${userdata.user}/.config/wallpapers/cyberpunk.jpg";
+      picture-uri-dark = "/home/${userdata.user}/.config/wallpapers/cyberpunk.jpg";
       picture-options = "zoom";
     };
 

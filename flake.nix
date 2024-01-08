@@ -1,3 +1,7 @@
+# TODO configure obsidian
+# TODO configure code
+# TODO apply gtk theme on all apps
+
 {
   description = "Nixos config flake";
 
@@ -8,32 +12,34 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-colors.url = "github:misterio77/nix-colors";
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs:
   let
-    # This value determines the NixOS release from which the default
-    # settings for stateful data, like file locations and database versions
-    # on your system were taken. It‘s perfectly fine and recommended to leave
-    # this value at the release version of the first install of this system.
-    # Before changing this value read the documentation for this option
-    # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-    stateVersion = "23.11"; # Did you read the comment?
-
-    mkSystem = hostname: desktop_enviroment: rice:
-      nixpkgs.lib.nixosSystem {
-        system =  "x86_64-linux";
-        specialArgs = { inherit inputs stateVersion desktop_enviroment rice; };
-        modules = [
-          { networking.hostName = hostname; }
-          ./hosts/${hostname}/configuration.nix
-          home-manager.nixosModules.default
-        ];
-      };
+    # https://search.nixos.org/options?channel=23.11&show=system.stateVersion&from=0&size=50&sort=relevance&type=packages&query=stateVersion
+    stateVersion = "23.11";
+    userdata = (import ./userdata.nix);
   in {
-    nixosConfigurations = {
-      vm-gnome-cyberpunk = mkSystem "vm" "gnome" "cyberpunk";
-      kraken-gnome-cyberpunk = mkSystem "kraken" "gnome" "cyberpunk";
+    nixosConfigurations.from-userdata = nixpkgs.lib.nixosSystem {
+      system =  "x86_64-linux";
+      specialArgs = { inherit inputs stateVersion userdata; };
+      modules = [
+        ./desktop-environment/${userdata.desktop_environment}/nixos
+        ./host/${userdata.host}
+        ./system
+
+        # ./misc/userdata-options.nix
+        home-manager.nixosModules.default {
+          # more config at ./system
+          home-manager.users."${userdata.user}" = import ./home-manager;
+        }
+      ];
     };
   };
 }

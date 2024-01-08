@@ -1,11 +1,25 @@
-{ stateVersion, pkgs, ... }: {
+{ inputs, pkgs, userdata, stateVersion, ... }: {
   # needed because of obsidian
   nixpkgs.config.permittedInsecurePackages = [
     "electron-25.9.0"
   ];
 
+  # user
+  users.users.${userdata.user} = {
+    isNormalUser = true;
+    extraGroups = [ "networkmanager" "wheel" ];
+  };
+  home-manager = {
+    extraSpecialArgs = { inherit inputs stateVersion userdata; };
+    useGlobalPkgs = true;
+    useUserPackages = true;
+  };
+
   # boot loader
   boot = {
+    # latest kernel
+    kernelPackages = pkgs.linuxPackages_latest;
+
     # no messages
     initrd.verbose = false;
     consoleLogLevel = 0;
@@ -86,11 +100,11 @@
 
   # automatic updates
   system = {
+    inherit stateVersion;
     autoUpgrade = {
       enable = true;
       dates = "daily";
     };
-    stateVersion = stateVersion;
   };
 
   # sound
@@ -105,7 +119,11 @@
     pulse.enable = true;
   };
 
-  # misc
-  networking.networkmanager.enable = true;
+  # networking
+  networking = {
+    networkmanager.enable = true;
+    hostName = userdata.host;
+  };
+
   services.printing.enable = true;            # Enable CUPS to print documents.
 }
