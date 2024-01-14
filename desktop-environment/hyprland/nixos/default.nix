@@ -1,6 +1,7 @@
 { inputs, pkgs, userdata, ... }: {
   imports = [
     ./fonts.nix
+    ./nvidia.nix
     inputs.hyprland.nixosModules.default
   ];
 

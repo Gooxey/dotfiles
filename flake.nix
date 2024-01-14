@@ -27,7 +27,7 @@
     userdata = (import ./userdata.nix);
   in {
     nixosConfigurations.from-userdata = nixpkgs.lib.nixosSystem {
-      system =  "x86_64-linux";
+      system = "x86_64-linux";
       specialArgs = { inherit inputs stateVersion userdata; };
       modules = [
         ./desktop-environment/${userdata.desktop_environment}/nixos

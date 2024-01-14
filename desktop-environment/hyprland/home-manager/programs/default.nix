@@ -2,5 +2,6 @@
   imports = [
     ./rofi
     ./waybar
+    ./vscode
   ];
 }

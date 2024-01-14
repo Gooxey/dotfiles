@@ -1,6 +1,6 @@
 {
   user = "dennis";
   host = "kraken";
-  desktop_environment = "gnome";
+  desktop_environment = "hyprland";
   rice = "cyberpunk";
 }

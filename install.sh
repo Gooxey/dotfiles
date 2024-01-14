@@ -133,7 +133,7 @@ echo "--------"
     update_userdata_field "rice"
 
     echo "Install the new system and load it and its components."
-    add_command "sudo nixos-rebuild switch --flake .#from-userdata --upgrade-all"
+    add_command "sudo nixos-rebuild switch --flake .#from-userdata "
 
     case $desktop_environment in
     "hyprland") if ! $reboot; then

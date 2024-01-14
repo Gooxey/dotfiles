@@ -12,11 +12,18 @@ in {
     enable = true;
     style = builtins.readFile ./style.css;
     settings = [{
-      output = primary_display;
+      # output = primary_display;
+
+      # TODO WORKSPACES
+      # TODO audio visualization
+      # FIXME sure to show everything on both screens
+      # FIXME maybe move clock and calendars
+      # FIXME color palette
 
       layer = "top";
       position = "top";
       modules-left = [
+        "hyprland/workspaces"
         "clock#calendar"
         "clock"
       ];
@@ -27,6 +34,8 @@ in {
         "custom/powermenu"
       ];
 
+      "hyprland/workspaces" = {
+      };
       "clock#calendar" = {
         format = "{:%d.%m.%Y}";
         tooltip = true;

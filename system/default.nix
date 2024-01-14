@@ -1,6 +1,6 @@
 { inputs, pkgs, userdata, stateVersion, ... }: {
-  # needed because of obsidian
   nixpkgs.config.permittedInsecurePackages = [
+    # needed because of obsidian
     "electron-25.9.0"
   ];
 
@@ -93,10 +93,8 @@
       options = "--delete-older-than 7d";
     };
   };
-  nixpkgs.config = {
-    allowUnfree = true;
-    allowUnfreePredicate = (_: true);
-  };
+
+  nixpkgs.config.allowUnfree = true;
 
   # automatic updates
   system = {

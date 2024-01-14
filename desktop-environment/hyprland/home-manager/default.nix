@@ -18,10 +18,18 @@ in {
       polkit-kde-agent
       udiskie
       pavucontrol
+      pulseaudio
+      playerctl
     ];
   };
 
-  xdg.configFile."wallpapers/cyberpunk.jpg".source = ../../../assets/wallpapers/cyberpunk.jpg;
+  xdg.configFile = {
+    "wallpapers/cyberpunk.jpg".source = ../../../assets/wallpapers/cyberpunk.jpg;
+    "hypr/vol.sh" = {
+      source = ./vol.sh;
+      executable = true;
+    };
+  };
 
   wayland.windowManager.hyprland = {
     enable = true;
