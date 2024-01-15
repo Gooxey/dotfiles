@@ -1,19 +1,8 @@
-{ userdata, lib, ... }:
-let
-  primary_display_path = ../../../../../host/${userdata.host}/primary-display;
-  primary_display = (
-    if builtins.pathExists primary_display_path then
-      [ (builtins.readFile primary_display_path) ]
-    else
-      []
-  );
-in {
+{ userdata, lib, ... }: {
   programs.waybar = {
     enable = true;
     style = builtins.readFile ./style.css;
     settings = [{
-      # output = primary_display;
-
       # TODO WORKSPACES
       # TODO audio visualization
       # FIXME sure to show everything on both screens

@@ -2,15 +2,13 @@
   gtk = {
     enable = true;
     cursorTheme = {
-      name = "macOS-BigSur";
-      package = pkgs.apple-cursor;
+      name = "capitaine-cursors";
+      package = pkgs.capitaine-cursors;
       size = 32;
     };
     theme = {
-      name = "Catppuccin-Mocha-Standard-Blue-Dark";
-      package = pkgs.catppuccin-gtk.override {
-        variant = "mocha";
-      };
+      name = "Ayu-Dark";
+      package = pkgs.ayu-theme-gtk;
     };
     iconTheme = {
       name = "Papirus-Dark";
