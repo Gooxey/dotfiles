@@ -1,1 +1,0 @@
-sed -e '/host *= *"[^"]*";/d' -e '$ i\ \ host = "kraken";' -i userdata.nix && sed -e '/desktop_environment *= *"[^"]*";/d' -e '$ i\ \ desktop_environment = "hyprland";' -i userdata.nix && sed -e '/rice *= *"[^"]*";/d' -e '$ i\ \ rice = "cyberpunk";' -i userdata.nix && sudo nixos-rebuild switch --flake .#from-userdata && hyprctl reload
