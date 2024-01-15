@@ -1,6 +1,6 @@
 { inputs, pkgs, userdata, ... }:
 let
-  host_specific_config = ../../../host/${userdata.host}/hyprland.conf;
+  host_specific_config = ../../../host/${userdata.host}/hyprland/hyprland.conf;
 in {
   imports = [
     inputs.hyprland.homeManagerModules.default
@@ -20,6 +20,7 @@ in {
       pavucontrol
       pulseaudio
       playerctl
+      wlr-randr
     ];
   };
 
@@ -38,7 +39,7 @@ in {
       builtins.readFile ./hyprland.conf +
       (
         if builtins.pathExists host_specific_config then
-          builtins.readFile host_specific_config
+          "\n" + builtins.readFile host_specific_config
         else
           ""
       )

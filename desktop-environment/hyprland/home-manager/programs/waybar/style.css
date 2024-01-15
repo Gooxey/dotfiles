@@ -1,26 +1,35 @@
 * {
-    border: none;
-    font-family: "JetBrains Mono", "Symbols Nerd Font Mono";
-    font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
-    font-size: 14px;
-    min-height: 30px;
+  border: none;
+  font-family: "JetBrains Mono", "Symbols Nerd Font Mono";
+  font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
+  font-size: 14px;
+  min-height: 30px;
+  color: @text;
 }
 
 window#waybar {
-    background: transparent;
+  background: transparent;
 }
 
-#clock#calendar, #clock, #pulseaudio, #network, #tray, #custom-powermenu {
-  border-radius: 50px;
-  background-color: #3C3836;
-  color: #fbf1c7;
+
+#workspaces,
+#clock#calendar,
+#clock,
+#pulseaudio,
+#network,
+#tray,
+#custom-powermenu
+{
   margin-top: 10px;
   padding-left: 10px;
   padding-right: 10px;
   margin-right: 10px;
+  border-radius: 50px;
+  border: 2px solid @mantle;
+  background-color: @background;
 }
 
-#clock.calendar {
-  padding-top: 1px;
-  margin-left: 10px;
+
+#workspaces button.visible {
+  background-color: @surface0;
 }

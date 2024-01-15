@@ -1,4 +1,10 @@
-{ pkgs, ... }: {
+{ pkgs, inputs, ... }: {
+  imports = [
+    inputs.nix-colors.homeManagerModules.default
+  ];
+
+  colorScheme = inputs.nix-colors.colorSchemes.ayu-dark;
+
   gtk = {
     enable = true;
     cursorTheme = {
