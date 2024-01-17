@@ -30,6 +30,9 @@ window#waybar {
 }
 
 
+#workspaces {
+  margin-left: 10px;
+}
 #workspaces button.visible {
   background-color: @surface0;
 }
