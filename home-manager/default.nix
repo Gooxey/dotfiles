@@ -24,7 +24,6 @@
       # not sure about the file manager yet
       dolphin
       gnome.nautilus
-      ranger
 
       brave
       spotify
@@ -34,7 +33,6 @@
       neovim
       git
       gh
-      rustup
 
       eza
       btop

@@ -86,6 +86,11 @@ function update_userdata_field() {
     add_command "sed -e '/$field *= *\"[^\"]*\";/d' -e '$ i\ \ $field = \"$value\";' -i userdata.nix"
 }
 
+clear
+echo "Sudo rights are required to rebuild your system."
+echo "To see which commands require sudo rights proceed until you reach the summary screen."
+sudo clear
+
 can_clear=true
 command=""
 
