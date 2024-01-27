@@ -33,10 +33,7 @@
 
     # loader
     loader = {
-      efi = {
-        efiSysMountPoint = "/efi";
-        canTouchEfiVariables = true;
-      };
+      efi.canTouchEfiVariables = true;
       grub = {
         enable = true;
         device = "nodev";
