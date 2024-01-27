@@ -29,7 +29,7 @@
     "/boot" = {
       device = "/dev/disk/by-label/NIXBOOT";
       fsType = "vfat";
-    }
+    };
   };
 
   swapDevices = [ ];
