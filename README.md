@@ -1,30 +1,15 @@
 # Dotfiles
 
-## Installation
+## Scripts
 
-> **IMPORTANT:** Before executing any script make sure you are in this directory. Otherwise, the scripts will delete and generate files in the directory you run them from!
+> **WARNING:** Every script is meant to be executed from the same directory the script is in. Executing any script from outside their directory may result in unintended behavior!
 
-### Adding a new machine
-
-Since every machine has different configurations (e.g. number of hard drives) you will need to generate a new hardware configuration.
-
-To do that and generate all other required files, run the `new_machine` script:
+Just run the master script which will guide you through all available options.
 
 ```bash
-$ bash new_machine.sh
+# Remember the warning above!
+bash ./RUNME.sh
 ```
-
-### Installing on an existing system
-
-> Make sure you are using the right hardware configuration for your machine. If you haven't yet generated one, follow the steps described in [Adding a new machine](#adding-a-new-machine).
-
-Execute the `install` script.
-
-```bash
-$ bash install.sh
-```
-
-This script will then ask you multiple questions to generate and install your system.
 
 ## The `userdata.nix` file
 
@@ -32,7 +17,7 @@ For a full example of such file see [./userdata.nix](./userdata.nix)
 
 ### About the `host`, `desktop_environment` and `rice` fields
 
-1. The install script will override these fields, even if they are not set.
+1. The rebuild / master script will override these fields, even if they are not set.
 2. All valid options for these fields are displayed in the install script.
 
 ### Table
