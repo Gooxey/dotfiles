@@ -7,7 +7,6 @@ in {
         ../desktop-environment/${userdata.desktop_environment}/home-manager
         # ./programs
     ] ++ programs [
-        "vscode"
         "git"
     ];
 
@@ -40,6 +39,7 @@ in {
 
             neovim
             gh
+            vscode
 
             eza
             btop
