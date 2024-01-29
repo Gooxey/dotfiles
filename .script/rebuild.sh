@@ -1,44 +1,16 @@
 #!/usr/bin/env bash
 
-function choose() {
-    local setting=$1
-    shift
-    local options=("$@")
+. common.sh
 
-    while true; do
-        if $can_clear; then clear; fi
-        echo "Please choose a $setting."
-        echo "The available options are:"
+require_sudo "\
+Sudo privileges are required to rebuild your system.\n\
+To check which commands will run with sudo privileges, proceed until you reach the summary screen.
+"
 
-        for i in ${!options[@]}; do
-            # First one is default
-            tmp=""
-            if [ $i == 0 ]; then tmp=" (default)"; fi
-
-            echo "  $i. ${options[$i]}$tmp"
-        done
-
-        read -sn 1 tmp
-
-        # Set first option on enter
-        if [ -z $tmp ]; then
-            eval "$setting=${options[0]}"
-            return 0
-        fi
-
-        # else read properly
-        for i in ${!options[@]}; do
-            if [ $i == "$tmp" ]; then
-                eval "$setting=${options[$i]}"
-                return 0
-            fi
-        done
-    done
-}
 function choose_two() {
     local var=$1
     local default_yes=$2
-
+    
     if $default_yes; then
         local description="$3 (Y/n)"
         local default=true
@@ -47,14 +19,17 @@ function choose_two() {
         local default=false
     fi
 
+    local message_line_count=$(echo -e "$message" | wc -l)
+    local lines_to_delete=$(($message_line_count + 1))
+
     while true; do
-        if $can_clear; then clear; fi
-        echo $description
+        echo -e $description
         read -sn 1 tmp
 
         # Handle enter press
         if [ -z $tmp ]; then
             eval "$var=$default"
+            delete_lines $lines_to_delete
             return 0
         fi
 
@@ -62,11 +37,15 @@ function choose_two() {
         case $tmp in
         "y" | "Y")
             eval "$var=true"
+            delete_lines $lines_to_delete
             return 0 ;;
         "n" | "N")
             eval "$var=false"
+            delete_lines $lines_to_delete
             return 0 ;;
         esac
+
+        delete_lines $lines_to_delete
     done
 }
 function add_command() {
@@ -83,35 +62,33 @@ function update_userdata_field() {
     local field=$1
     local value=${!1}
 
-    add_command "sed -e '/$field *= *\"[^\"]*\";/d' -e '$ i\ \ $field = \"$value\";' -i userdata.nix"
+    add_command "sed -e '/$field *= *\"[^\"]*\";/d' -e '$ i\ \ \ \ $field = \"$value\";' -i ./userdata.nix"
 }
 
-clear
-echo "Sudo rights are required to rebuild your system."
-echo "To see which commands require sudo rights proceed until you reach the summary screen."
-sudo clear
-
-can_clear=true
 command=""
 
 # HOST
-choose host \
-    "kraken"
+menu host \
+    "Please choose a host." \
+        "kraken"
 
 # DESKTOP ENVIRONMENT
-choose desktop_environment \
-    "gnome" \
-    "hyprland"
+menu desktop_environment \
+    "Please choose a desktop environment." \
+        "gnome" \
+        "hyprland"
 
 # RICE
 case $desktop_environment in
 "gnome")
-    choose rice \
-        "cyberpunk"
+    menu rice \
+        "Please choose a rice." \
+            "cyberpunk"
 ;;
 "hyprland")
-    choose rice \
-        "cyberpunk"
+    menu rice \
+        "Please choose a rice." \
+            "cyberpunk"
 ;;
 esac
 
@@ -121,7 +98,6 @@ choose_two reboot true "Should this machine be restarted once everthing got conf
 # EXPORT
 choose_two export false "Should the generated command be exported to ./quick_install.sh? Any file at this location will be overriden!"
 
-clear
 echo "SUMMARY"
 echo "-------"
 echo "Host                : $host"
@@ -133,22 +109,22 @@ echo ""
 echo "COMMANDS"
 echo "--------"
     echo "Override the current values of the userdata.nix file with the new ones."
-    update_userdata_field "host"
-    update_userdata_field "desktop_environment"
-    update_userdata_field "rice"
+        update_userdata_field "host"
+        update_userdata_field "desktop_environment"
+        update_userdata_field "rice"
 
     echo "Install the new system and load it and its components."
-    add_command "sudo nixos-rebuild switch --flake .#from-userdata "
+        add_command "sudo nixos-rebuild switch --flake .#from-userdata "
 
-    case $desktop_environment in
-    "hyprland") if ! $reboot; then
-        add_command "hyprctl reload"
-    fi ;;
-    esac
+        case $desktop_environment in
+        "hyprland") if ! $reboot; then
+            add_command "hyprctl reload"
+        fi ;;
+        esac
 
     if $reboot; then
         echo "Reboot the machine."
-        add_command "reboot"
+            add_command "reboot"
     fi
 echo ""
 echo "SINGLE-LINE-COMMAND"
@@ -156,10 +132,12 @@ echo "-------------------"
 echo $command
 echo ""
 
-can_clear=false
 choose_two continue true "Continue?"
 if ! $continue; then exit 0; fi
 
-if $export; then echo $command > ./quick_install.sh; fi
+echo "COMMAND-OUTPUT"
+echo "--------------"
 
+cd ..
+if $export; then echo $command > ./quick_install.sh; fi
 eval $command

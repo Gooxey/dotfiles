@@ -1,3 +1,6 @@
+echo "Wont work"
+exit 1
+
 lsblk
 
 echo ""

@@ -1,7 +1,7 @@
 { ... }: {
-  imports = [
-    ./rofi
-    ./waybar
-    ./vscode
-  ];
+    imports = [
+        ./rofi
+        ./waybar
+        ./vscode
+    ];
 }
