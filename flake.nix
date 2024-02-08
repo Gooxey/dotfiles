@@ -1,6 +1,5 @@
-# TODO configure obsidian
-# TODO configure code
 # TODO apply gtk theme on all apps
+# TODO 9 and 10 as preserved workspaces and show their icon there
 
 {
     description = "Nixos config flake";

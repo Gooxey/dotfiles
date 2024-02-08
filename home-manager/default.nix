@@ -8,6 +8,7 @@ in {
         # ./programs
     ] ++ programs [
         "git"
+        "kitty"
     ];
 
 
@@ -27,8 +28,6 @@ in {
         homeDirectory = "/home/${userdata.user}";
 
         packages = with pkgs; [
-            kitty
-
             # not sure about the file manager yet
             dolphin
             gnome.nautilus
@@ -36,6 +35,8 @@ in {
             brave
             spotify
             obsidian
+
+            lutris
 
             neovim
             gh

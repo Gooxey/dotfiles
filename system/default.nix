@@ -137,4 +137,7 @@
 
     # Enable CUPS to print documents.
     services.printing.enable = true;
+
+    # Enable browsing samba shares
+    services.gvfs.enable = true;
 }
