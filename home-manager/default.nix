@@ -28,15 +28,11 @@ in {
         homeDirectory = "/home/${userdata.user}";
 
         packages = with pkgs; [
-            # not sure about the file manager yet
-            dolphin
             gnome.nautilus
 
             brave
             spotify
             obsidian
-
-            lutris
 
             neovim
             gh

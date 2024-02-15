@@ -1,6 +1,6 @@
 {
     persistent-workspaces = {
-        "DP-3" =  [ 1 2 3 4 5 ];
+        "DP-1" =  [ 1 2 3 4 5 ];
         "HDMI-A-1" = [ 6 7 8 9 10 ];
     };
 }

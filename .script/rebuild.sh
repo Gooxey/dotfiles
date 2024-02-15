@@ -10,7 +10,7 @@ To check which commands will run with sudo privileges, proceed until you reach t
 function choose_two() {
     local var=$1
     local default_yes=$2
-    
+
     if $default_yes; then
         local description="$3 (Y/n)"
         local default=true
@@ -114,7 +114,7 @@ echo "--------"
         update_userdata_field "rice"
 
     echo "Install the new system and load it and its components."
-        add_command "sudo nixos-rebuild switch --flake .#from-userdata "
+        add_command "sudo nixos-rebuild switch --upgrade-all --flake .#from-userdata"
 
         case $desktop_environment in
         "hyprland") if ! $reboot; then
