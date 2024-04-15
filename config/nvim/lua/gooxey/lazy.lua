@@ -35,23 +35,39 @@ require("lazy").setup({
         "nvim-lualine/lualine.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" }
     },
-    { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {}, config = true },
+    {
+        "lukas-reineke/indent-blankline.nvim",
+        main = "ibl",
+        opts = {},
+        config = true
+    },
     { "lewis6991/gitsigns.nvim", config = true },
     "RRethy/vim-illuminate",
 
     -- other
     {
+        "neovim/nvim-lspconfig",
+        dependencies = {
+            "williamboman/mason.nvim",
+            "williamboman/mason-lspconfig.nvim",
+        },
+    },
+    {
         "folke/todo-comments.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },
     },
-    "nvim-treesitter/nvim-treesitter-context",
-    "hiphish/rainbow-delimiters.nvim",
-    {'akinsho/toggleterm.nvim', version = "*", config = true},
+    {'akinsho/toggleterm.nvim', version = "*", config = true },
     {
         'nvim-telescope/telescope.nvim', tag = '0.1.6',
         dependencies = { 'nvim-lua/plenary.nvim' },
     },
-    {"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
+    {
+        "nvim-treesitter/nvim-treesitter",
+        build = ":TSUpdate",
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter-context",
+        },
+    },
     {
         "NeogitOrg/neogit",
         config = true,
@@ -60,14 +76,11 @@ require("lazy").setup({
             "nvim-telescope/telescope.nvim",
         }
     },
-
-    -- lsp
-    {'williamboman/mason.nvim'},
-    {'williamboman/mason-lspconfig.nvim'},
-    {'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
-    {'neovim/nvim-lspconfig'},
-    {'hrsh7th/cmp-nvim-lsp'},
-    {'hrsh7th/nvim-cmp'},
-    {'L3MON4D3/LuaSnip'},
-
+    {
+        "https://github.com/ms-jpq/coq_nvim",
+        build = ":COQdeps",
+        dependencies = {
+            "ms-jpq/coq.artifacts", -- 9000+ Snippets
+        },
+    },
 })

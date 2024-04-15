@@ -76,16 +76,32 @@ cd config
 echo "Commands"
 echo "--------"
 
-add_description "Delete exiting files which are in the way of the new dotfiles"
-    for dir in *; do
-        add_command "rm -rf ~/.config/$dir"
-    done
+if [ ! -d generated ]; then
+    add_description "Create the generated dir and prepare the uninstall script"
+        add_command "rm -rf generated"
+        add_command "mkdir generated"
+        add_command 'DOTFILES_UNINSTALL_SCRIPT=""'
+fi
 
-add_description "Create links to this repos dotfiles"
-    for dir in *; do
-        full_dir=$(realpath $dir)
+for dir in *; do
+    full_dir=$(realpath $dir)
+    add_description "Override files at ~/config/$dir with a link to this repos dotfiles and add the link to the uninstall srcipt"
+        add_command "rm -rf ~/.config/$dir"
         add_command "ln -s $full_dir ~/.config"
-    done
+        add_command "DOTFILES_UNINSTALL_SCRIPT=\"\$DOTFILES_UNINSTALL_SCRIPT && rm ~/.config/$dir\""
+done
+
+add_description "Install neovim nightly and add it to the uninstall script"
+    add_command 'curl -L https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage > generated/nvim'
+    add_command 'chmod u+x generated/nvim'
+    add_command "sudo rm -f /usr/bin/nvim"
+    add_command 'sudo ln -s $(realpath ./generated/nvim) /usr/bin'
+    add_command 'DOTFILES_UNINSTALL_SCRIPT="$DOTFILES_UNINSTALL_SCRIPT && rm /usr/bin/nvim"'
+
+add_description "Finish and write the uninstall script to generated/uninstall.sh"
+    add_command 'DOTFILES_UNINSTALL_SCRIPT="$DOTFILES_UNINSTALL_SCRIPT && rm -rf ../generated"'
+    add_command 'echo $DOTFILES_UNINSTALL_SCRIPT > generated/uninstall.sh'
+    add_command 'chmod +x generated/uninstall.sh'
 
 echo
 echo "Make sure to backup your files!"
