@@ -1,0 +1,2 @@
+# additionaly required programs
+- ripgrep
