@@ -1,5 +1,8 @@
+RED='\033[1;31m'
 GREY='\e[2;39m'
 NC='\033[0m'
+
+[[ ! $EUID -ne 0 ]] && echo -e "${RED}Do not execute this script using sudo! Run this instead:\n  \$ bash install.sh$NC" && exit 1
 
 command=""
 
@@ -85,7 +88,7 @@ fi
 
 for dir in *; do
     full_dir=$(realpath $dir)
-    add_description "Override files at ~/config/$dir with a link to this repos dotfiles and add the link to the uninstall srcipt"
+    add_description "Override files at ~/.config/$dir with a link to this repos dotfiles and add the link to the uninstall srcipt"
         add_command "rm -rf ~/.config/$dir"
         add_command "ln -s $full_dir ~/.config"
         add_command "DOTFILES_UNINSTALL_SCRIPT=\"\$DOTFILES_UNINSTALL_SCRIPT && rm ~/.config/$dir\""
