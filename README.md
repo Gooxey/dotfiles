@@ -1,7 +1,5 @@
 # dotfiles
 
-All files are stored like they are in $HOME ( with '.'-prefixes removed )
-
 ## Installation
 
 > **Note**: Running the script will delete all files in the directories
