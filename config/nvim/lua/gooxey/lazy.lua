@@ -70,7 +70,7 @@ require("lazy").setup({
     },
     {
         "NeogitOrg/neogit",
-        branch = "nightly",
+        branch = "master",
         config = true,
         dependencies = {
             "nvim-lua/plenary.nvim",
